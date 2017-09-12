@@ -1,4 +1,4 @@
-# PHP Fortnox REST wrapper
+# PHP Fortnox wrapper
 
 <p align="center"> 
 <a href="https://travis-ci.org/LasseRafn/php-fortnox"><img src="https://img.shields.io/travis/LasseRafn/php-fortnox.svg?style=flat-square" alt="Build Status"></a>
