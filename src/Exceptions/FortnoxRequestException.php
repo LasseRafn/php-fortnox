@@ -18,13 +18,13 @@ class FortnoxRequestException extends ClientException
                                                             ->getContents());
             $message = $clientException->getMessage();
 
-	        if (isset($messageResponse->ErrorInformation) && isset($messageResponse->ErrorInformation->Code)) {
-		        $message = "{$messageResponse->ErrorInformation->Code}: {$messageResponse->ErrorInformation->Message}";
-	        }
+            if (isset($messageResponse->ErrorInformation) && isset($messageResponse->ErrorInformation->Code)) {
+                $message = "{$messageResponse->ErrorInformation->Code}: {$messageResponse->ErrorInformation->Message}";
+            }
 
-	        if (isset($messageResponse->ErrorInformation) && isset($messageResponse->ErrorInformation->code)) {
-		        $message = "{$messageResponse->ErrorInformation->code}: {$messageResponse->ErrorInformation->message}";
-	        }
+            if (isset($messageResponse->ErrorInformation) && isset($messageResponse->ErrorInformation->code)) {
+                $message = "{$messageResponse->ErrorInformation->code}: {$messageResponse->ErrorInformation->message}";
+            }
         }
 
         $request = $clientException->getRequest();

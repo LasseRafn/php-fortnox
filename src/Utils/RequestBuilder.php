@@ -7,357 +7,356 @@ use LasseRafn\Fortnox\Responses\PaginatedResponse;
 
 class RequestBuilder
 {
-	private $builder;
+    private $builder;
 
-	protected $parameters     = [];
-	protected $dateFormat     = 'Y-m-d';
-	protected $dateTimeFormat = 'Y-m-d H:i';
+    protected $parameters = [];
+    protected $dateFormat = 'Y-m-d';
+    protected $dateTimeFormat = 'Y-m-d H:i';
 
-	public function __construct( Builder $builder )
-	{
-		$this->builder = $builder;
-	}
+    public function __construct(Builder $builder)
+    {
+        $this->builder = $builder;
+    }
 
-	/**
-	 * Select only some fields.
-	 *
-	 * @param array|int|string $fields
-	 *
-	 * @return $this
-	 */
-	public function select( $fields )
-	{
-		if ( ! isset( $this->parameters['fields'] ) ) {
-			$this->parameters['fields'] = [];
-		}
+    /**
+     * Select only some fields.
+     *
+     * @param array|int|string $fields
+     *
+     * @return $this
+     */
+    public function select($fields)
+    {
+        if (!isset($this->parameters['fields'])) {
+            $this->parameters['fields'] = [];
+        }
 
-		if ( is_array( $fields ) ) {
-			foreach ( (array) $fields as $field ) {
-				$this->parameters['fields'][] = $field;
-			}
-		}
-		elseif ( is_string( $fields ) || is_int( $fields ) ) {
-			$this->parameters['fields'][] = $fields;
-		}
+        if (is_array($fields)) {
+            foreach ((array) $fields as $field) {
+                $this->parameters['fields'][] = $field;
+            }
+        } elseif (is_string($fields) || is_int($fields)) {
+            $this->parameters['fields'][] = $fields;
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Limit last modified
-	 *
-	 * @param \DateTime $startDate
-	 *
-	 * @return $this
-	 */
-	public function lastModified( \DateTime $startDate )
-	{
-		$this->parameters['lastmodified'] = $startDate->format( $this->dateTimeFormat );
+    /**
+     * Limit last modified.
+     *
+     * @param \DateTime $startDate
+     *
+     * @return $this
+     */
+    public function lastModified(\DateTime $startDate)
+    {
+        $this->parameters['lastmodified'] = $startDate->format($this->dateTimeFormat);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Limit from a specific date
-	 *
-	 * @param \DateTime $startDate
-	 *
-	 * @return $this
-	 */
-	public function from( \DateTime $startDate )
-	{
-		$this->parameters['fromdate'] = $startDate->format( $this->dateFormat );
+    /**
+     * Limit from a specific date.
+     *
+     * @param \DateTime $startDate
+     *
+     * @return $this
+     */
+    public function from(\DateTime $startDate)
+    {
+        $this->parameters['fromdate'] = $startDate->format($this->dateFormat);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Limit to a specific date
-	 *
-	 * @param \DateTime $endDate
-	 *
-	 * @return $this
-	 */
-	public function to( \DateTime $endDate )
-	{
-		$this->parameters['todate'] = $endDate->format( $this->dateFormat );
+    /**
+     * Limit to a specific date.
+     *
+     * @param \DateTime $endDate
+     *
+     * @return $this
+     */
+    public function to(\DateTime $endDate)
+    {
+        $this->parameters['todate'] = $endDate->format($this->dateFormat);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Limit results to a specific financial year
-	 *
-	 * @param $financialYear
-	 *
-	 * @return $this
-	 */
-	public function financialYear( $financialYear )
-	{
-		$this->parameters['financialyear'] = $financialYear;
+    /**
+     * Limit results to a specific financial year.
+     *
+     * @param $financialYear
+     *
+     * @return $this
+     */
+    public function financialYear($financialYear)
+    {
+        $this->parameters['financialyear'] = $financialYear;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Limit results to a specific financial year using DateTime
-	 *
-	 * @param \DateTime $financialYear
-	 *
-	 * @return $this
-	 */
-	public function financialYearByDate( \DateTime $financialYear )
-	{
-		$this->parameters['financialyeardate'] = $financialYear->format( $this->dateFormat );
+    /**
+     * Limit results to a specific financial year using DateTime.
+     *
+     * @param \DateTime $financialYear
+     *
+     * @return $this
+     */
+    public function financialYearByDate(\DateTime $financialYear)
+    {
+        $this->parameters['financialyeardate'] = $financialYear->format($this->dateFormat);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Used for pagination, to set current page.
-	 * Starts at 1
-	 *
-	 * @param $page
-	 *
-	 * @return $this
-	 */
-	public function page( $page )
-	{
-		$this->parameters['page'] = $page;
+    /**
+     * Used for pagination, to set current page.
+     * Starts at 1.
+     *
+     * @param $page
+     *
+     * @return $this
+     */
+    public function page($page)
+    {
+        $this->parameters['page'] = $page;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Used for offsetting, also useful combined with `limit`
-	 *
-	 * @param $offset
-	 *
-	 * @return $this
-	 */
-	public function offset( $offset )
-	{
-		$this->parameters['offset'] = $offset;
+    /**
+     * Used for offsetting, also useful combined with `limit`.
+     *
+     * @param $offset
+     *
+     * @return $this
+     */
+    public function offset($offset)
+    {
+        $this->parameters['offset'] = $offset;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Used for pagination and limiting.
-	 * Default: 100, max: 500.
-	 *
-	 * @param $limit
-	 *
-	 * @return $this
-	 */
-	public function limit( $limit )
-	{
-		if ( $limit > 500 ) {
-			$limit = 500;
-		}
+    /**
+     * Used for pagination and limiting.
+     * Default: 100, max: 500.
+     *
+     * @param $limit
+     *
+     * @return $this
+     */
+    public function limit($limit)
+    {
+        if ($limit > 500) {
+            $limit = 500;
+        }
 
-		$this->parameters['limit'] = $limit;
+        $this->parameters['limit'] = $limit;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Add a filter to only show models that are deleted.
-	 *
-	 * @return $this
-	 */
-	public function deletedOnly()
-	{
-		$this->parameters['deletedOnly'] = 'true';
+    /**
+     * Add a filter to only show models that are deleted.
+     *
+     * @return $this
+     */
+    public function deletedOnly()
+    {
+        $this->parameters['deletedOnly'] = 'true';
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Remove the filter that only show models that are deleted.
-	 *
-	 * @return $this
-	 */
-	public function notDeletedOnly()
-	{
-		unset( $this->parameters['deletedOnly'] );
+    /**
+     * Remove the filter that only show models that are deleted.
+     *
+     * @return $this
+     */
+    public function notDeletedOnly()
+    {
+        unset($this->parameters['deletedOnly']);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Add a filter to only show models changed since %.
-	 *
-	 * @param \DateTime $date
-	 *
-	 * @return $this
-	 */
-	public function since( \DateTime $date )
-	{
-		$this->parameters['changesSince'] = $date->format( $this->dateFormat );
+    /**
+     * Add a filter to only show models changed since %.
+     *
+     * @param \DateTime $date
+     *
+     * @return $this
+     */
+    public function since(\DateTime $date)
+    {
+        $this->parameters['changesSince'] = $date->format($this->dateFormat);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Build URL parameters.
-	 *
-	 * @return array
-	 */
-	private function buildParameters()
-	{
-		$parameters = http_build_query( $this->parameters );
+    /**
+     * Build URL parameters.
+     *
+     * @return array
+     */
+    private function buildParameters()
+    {
+        $parameters = http_build_query($this->parameters);
 
-		if ( $parameters !== '' ) {
-			$parameters = "?{$parameters}";
-		}
+        if ($parameters !== '') {
+            $parameters = "?{$parameters}";
+        }
 
-		return $parameters;
-	}
+        return $parameters;
+    }
 
-	/**
-	 * Send a request to the API to get models.
-	 *
-	 * @return PaginatedResponse
-	 */
-	public function get()
-	{
-		$response = $this->builder->get( $this->buildParameters() );
+    /**
+     * Send a request to the API to get models.
+     *
+     * @return PaginatedResponse
+     */
+    public function get()
+    {
+        $response = $this->builder->get($this->buildParameters());
 
-		return $response;
-	}
+        return $response;
+    }
 
-	/**
-	 * Send a request to the API to get models,
-	 * manually paginated to get all objects.
-	 *
-	 * We specify a minor usleep to prevent some
-	 * weird bugs. You can disable this if you
-	 * desire, however I ran into trouble with
-	 * larger datasets.
-	 *
-	 * @param bool $sleep
-	 *
-	 * @return array
-	 */
-	public function all( $sleep = true )
-	{
-		$items = [];
-		$this->page( 0 );
+    /**
+     * Send a request to the API to get models,
+     * manually paginated to get all objects.
+     *
+     * We specify a minor usleep to prevent some
+     * weird bugs. You can disable this if you
+     * desire, however I ran into trouble with
+     * larger datasets.
+     *
+     * @param bool $sleep
+     *
+     * @return array
+     */
+    public function all($sleep = true)
+    {
+        $items = [];
+        $this->page(0);
 
-		$response = $this->builder->get( $this->buildParameters() );
+        $response = $this->builder->get($this->buildParameters());
 
-		while ( count( $response->items ) > 0 ) {
-			foreach ( $response->items as $item ) {
-				$items[] = $item;
-			}
+        while (count($response->items) > 0) {
+            foreach ($response->items as $item) {
+                $items[] = $item;
+            }
 
-			$this->page( $this->getPage() + 1 );
+            $this->page($this->getPage() + 1);
 
-			if ( $sleep ) {
-				usleep( 200 );
-			}
+            if ($sleep) {
+                usleep(200);
+            }
 
-			$response = $this->builder->get( $this->buildParameters() );
-		}
+            $response = $this->builder->get($this->buildParameters());
+        }
 
-		return $items;
-	}
+        return $items;
+    }
 
-	/**
-	 * Send a request to the API to get a single model.
-	 *
-	 * @param $guid
-	 *
-	 * @return Model|mixed
-	 */
-	public function find( $guid )
-	{
-		return $this->builder->find( $guid );
-	}
+    /**
+     * Send a request to the API to get a single model.
+     *
+     * @param $guid
+     *
+     * @return Model|mixed
+     */
+    public function find($guid)
+    {
+        return $this->builder->find($guid);
+    }
 
-	/**
-	 * Creates a model from a data array.
-	 * Sends a API request.
-	 *
-	 * $fakeAttributes decides if we should create the model,
-	 * from the data sent, or if we should refetch after creation.
-	 * Because the Dinero API does not return the model after creation,
-	 * so we can either send a GET request, or fake the data.
-	 * Obviously we wont return a faked model if we get an error, so
-	 * faking should be more than enough for most cases; unique IDs are
-	 * returned from the creation response.
-	 *
-	 * When fakeAttribute is false, we send a GET request to the API,
-	 * to get the model.
-	 *
-	 * @param array $data
-	 * @param bool  $fakeAttributes
-	 *
-	 * @return Model
-	 */
-	public function create( $data = [], $fakeAttributes = true )
-	{
-		return $this->builder->create( $data, $fakeAttributes );
-	}
+    /**
+     * Creates a model from a data array.
+     * Sends a API request.
+     *
+     * $fakeAttributes decides if we should create the model,
+     * from the data sent, or if we should refetch after creation.
+     * Because the Dinero API does not return the model after creation,
+     * so we can either send a GET request, or fake the data.
+     * Obviously we wont return a faked model if we get an error, so
+     * faking should be more than enough for most cases; unique IDs are
+     * returned from the creation response.
+     *
+     * When fakeAttribute is false, we send a GET request to the API,
+     * to get the model.
+     *
+     * @param array $data
+     * @param bool  $fakeAttributes
+     *
+     * @return Model
+     */
+    public function create($data = [], $fakeAttributes = true)
+    {
+        return $this->builder->create($data, $fakeAttributes);
+    }
 
-	/**
-	 * Returns the set page.
-	 *
-	 * @return int
-	 */
-	public function getPage()
-	{
-		return $this->parameters['page'];
-	}
+    /**
+     * Returns the set page.
+     *
+     * @return int
+     */
+    public function getPage()
+    {
+        return $this->parameters['page'];
+    }
 
-	/**
-	 * Returns the perPage.
-	 *
-	 * @return int
-	 */
-	public function getPerPage()
-	{
-		return $this->parameters['pageSize'];
-	}
+    /**
+     * Returns the perPage.
+     *
+     * @return int
+     */
+    public function getPerPage()
+    {
+        return $this->parameters['pageSize'];
+    }
 
-	/**
-	 * Returns the fields.
-	 *
-	 * @return array|null
-	 */
-	public function getSelectedFields()
-	{
-		return $this->parameters['fields'] ?? null;
-	}
+    /**
+     * Returns the fields.
+     *
+     * @return array|null
+     */
+    public function getSelectedFields()
+    {
+        return $this->parameters['fields'] ?? null;
+    }
 
-	/**
-	 * Returns deletedOnly state.
-	 *
-	 * @return string
-	 */
-	public function getDeletedOnlyState()
-	{
-		return $this->parameters['deletedOnly'] ?? 'false';
-	}
+    /**
+     * Returns deletedOnly state.
+     *
+     * @return string
+     */
+    public function getDeletedOnlyState()
+    {
+        return $this->parameters['deletedOnly'] ?? 'false';
+    }
 
-	/**
-	 * Returns changes since.
-	 *
-	 * @return string|null
-	 */
-	public function getSince()
-	{
-		return $this->parameters['changesSince'] ?? null;
-	}
+    /**
+     * Returns changes since.
+     *
+     * @return string|null
+     */
+    public function getSince()
+    {
+        return $this->parameters['changesSince'] ?? null;
+    }
 
-	/**
-	 * Returns all parameters as an array.
-	 *
-	 * @return array
-	 */
-	public function getParameters()
-	{
-		return $this->parameters;
-	}
+    /**
+     * Returns all parameters as an array.
+     *
+     * @return array
+     */
+    public function getParameters()
+    {
+        return $this->parameters;
+    }
 }
