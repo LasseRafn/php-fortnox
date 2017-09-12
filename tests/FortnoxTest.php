@@ -5,9 +5,9 @@ namespace LasseRafn\Fortnox\Tests;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use LasseRafn\Fortnox\Fortnox;
 use LasseRafn\Fortnox\Exceptions\FortnoxRequestException;
 use LasseRafn\Fortnox\Exceptions\FortnoxServerException;
+use LasseRafn\Fortnox\Fortnox;
 use LasseRafn\Fortnox\Requests\ContactRequestBuilder;
 use LasseRafn\Fortnox\Requests\CreditnoteRequestBuilder;
 use LasseRafn\Fortnox\Requests\InvoiceRequestBuilder;
@@ -20,7 +20,8 @@ class FortnoxTest extends TestCase
     {
         $fortnox = new Fortnox('7EbBznJgT2', '2c4a0a9d-5831-4a21-9237-90bed24ca5e1');
 
-        var_dump($fortnox->invoices()->get()); exit;
+        var_dump($fortnox->invoices()->get());
+        exit;
 
         $this->assertEquals(null, $fortnox->getAuthToken());
         $this->assertEquals(null, $fortnox->getOrgId());
@@ -61,7 +62,7 @@ class FortnoxTest extends TestCase
 
         $handler = HandlerStack::create($mock);
 
-        $fortnox = new Fortnox('clientId', 'clientSecret', null, null, [ 'handler' => $handler]);
+        $fortnox = new Fortnox('clientId', 'clientSecret', null, null, ['handler' => $handler]);
 
         $this->assertNull($fortnox->getOrgId());
         $this->assertNull($fortnox->getAuthToken());
@@ -111,7 +112,7 @@ class FortnoxTest extends TestCase
 
         $handler = HandlerStack::create($mock);
 
-        $fortnox = new Fortnox('clientId', 'clientSecret', null, null, [ 'handler' => $handler]);
+        $fortnox = new Fortnox('clientId', 'clientSecret', null, null, ['handler' => $handler]);
 
         $fortnox->auth('foo', 'bar');
     }
@@ -131,7 +132,7 @@ class FortnoxTest extends TestCase
 
         $handler = HandlerStack::create($mock);
 
-        $fortnox = new Fortnox('clientId', 'clientSecret', null, null, [ 'handler' => $handler]);
+        $fortnox = new Fortnox('clientId', 'clientSecret', null, null, ['handler' => $handler]);
 
         $fortnox->auth('foo', 'bar');
     }

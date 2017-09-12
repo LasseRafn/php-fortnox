@@ -18,76 +18,76 @@ use LasseRafn\Fortnox\Utils\Request;
 
 class Fortnox
 {
-	protected $request;
+    protected $request;
 
-	private $accessToken;
-	private $clientSecret;
-	private $clientConfig;
+    private $accessToken;
+    private $clientSecret;
+    private $clientConfig;
 
-	public function __construct( $clientSecret = '', $accessToken = '', $clientConfig = [] )
-	{
-		$this->accessToken  = $accessToken;
-		$this->clientSecret = $clientSecret;
-		$this->clientConfig = $clientConfig;
+    public function __construct($clientSecret = '', $accessToken = '', $clientConfig = [])
+    {
+        $this->accessToken = $accessToken;
+        $this->clientSecret = $clientSecret;
+        $this->clientConfig = $clientConfig;
 
-		$this->request = new Request( $this->clientSecret, $this->accessToken, $this->clientConfig );
-	}
+        $this->request = new Request($this->clientSecret, $this->accessToken, $this->clientConfig);
+    }
 
-	public function setAccessToken( $accessToken )
-	{
-		$this->accessToken = $accessToken;
+    public function setAccessToken($accessToken)
+    {
+        $this->accessToken = $accessToken;
 
-		$this->request = new Request( $this->clientSecret, $this->accessToken, $this->clientConfig );
-	}
+        $this->request = new Request($this->clientSecret, $this->accessToken, $this->clientConfig);
+    }
 
-	public function getAccessToken()
-	{
-		return $this->accessToken;
-	}
+    public function getAccessToken()
+    {
+        return $this->accessToken;
+    }
 
-	public function authorize( $authorizationCode )
-	{
-		try {
-			$this->clientConfig['headers']                       = $this->clientConfig['headers'] ?? [];
-			$this->clientConfig['headers']['Authorization-Code'] = $authorizationCode;
+    public function authorize($authorizationCode)
+    {
+        try {
+            $this->clientConfig['headers'] = $this->clientConfig['headers'] ?? [];
+            $this->clientConfig['headers']['Authorization-Code'] = $authorizationCode;
 
-			$this->request = new Request( $this->clientSecret, $this->accessToken, $this->clientConfig );
+            $this->request = new Request($this->clientSecret, $this->accessToken, $this->clientConfig);
 
-			$response = json_decode( $this->request->curl->get( '' )->getBody()->getContents() );
+            $response = json_decode($this->request->curl->get('')->getBody()->getContents());
 
-			if ( ! isset( $response->Authorization ) ) {
-				throw new \Exception( 'Not authorized.' );
-			}
+            if (!isset($response->Authorization)) {
+                throw new \Exception('Not authorized.');
+            }
 
-			unset($this->clientConfig['headers']['Authorization-Code']);
+            unset($this->clientConfig['headers']['Authorization-Code']);
 
-			$this->setAccessToken( $response->Authorization->AccessToken );
+            $this->setAccessToken($response->Authorization->AccessToken);
 
-			return $this;
-		} catch ( ClientException $exception ) {
-			throw new FortnoxRequestException( $exception );
-		} catch ( ServerException $exception ) {
-			throw new FortnoxServerException( $exception );
-		}
-	}
+            return $this;
+        } catch (ClientException $exception) {
+            throw new FortnoxRequestException($exception);
+        } catch (ServerException $exception) {
+            throw new FortnoxServerException($exception);
+        }
+    }
 
-	public function contacts()
-	{
-		return new ContactRequestBuilder( new ContactBuilder( $this->request ) );
-	}
+    public function contacts()
+    {
+        return new ContactRequestBuilder(new ContactBuilder($this->request));
+    }
 
-	public function invoices()
-	{
-		return new InvoiceRequestBuilder( new InvoiceBuilder( $this->request ) );
-	}
+    public function invoices()
+    {
+        return new InvoiceRequestBuilder(new InvoiceBuilder($this->request));
+    }
 
-	public function products()
-	{
-		return new ProductRequestBuilder( new ProductBuilder( $this->request ) );
-	}
+    public function products()
+    {
+        return new ProductRequestBuilder(new ProductBuilder($this->request));
+    }
 
-	public function creditnotes()
-	{
-		return new CreditnoteRequestBuilder( new CreditnoteBuilder( $this->request ) );
-	}
+    public function creditnotes()
+    {
+        return new CreditnoteRequestBuilder(new CreditnoteBuilder($this->request));
+    }
 }

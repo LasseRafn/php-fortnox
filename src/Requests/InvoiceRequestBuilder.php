@@ -6,38 +6,38 @@ use LasseRafn\Fortnox\Utils\RequestBuilder;
 
 class InvoiceRequestBuilder extends RequestBuilder
 {
-	public function onlyCancelled()
-	{
-		$this->parameters['filter'] = 'cancelled';
+    public function onlyCancelled()
+    {
+        $this->parameters['filter'] = 'cancelled';
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function onlyFullyPaid()
-	{
-		$this->parameters['filter'] = 'fullypaid';
+    public function onlyFullyPaid()
+    {
+        $this->parameters['filter'] = 'fullypaid';
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function onlyUnpaid()
-	{
-		$this->parameters['filter'] = 'unpaid';
+    public function onlyUnpaid()
+    {
+        $this->parameters['filter'] = 'unpaid';
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function onlyUnpaidOverdue()
-	{
-		$this->parameters['filter'] = 'unpaidoverdue';
+    public function onlyUnpaidOverdue()
+    {
+        $this->parameters['filter'] = 'unpaidoverdue';
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function onlyUnbooked()
-	{
-		$this->parameters['filter'] = 'unbooked';
+    public function onlyUnbooked()
+    {
+        $this->parameters['filter'] = 'unbooked';
 
-		return $this;
-	}
+        return $this;
+    }
 }
