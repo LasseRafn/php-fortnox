@@ -19,7 +19,7 @@ composer require lasserafn/php-fortnox
 
 ### Requirements
 
-* PHP +5.6
+* PHP +7.0
 
 ### Getting started
 
