@@ -72,14 +72,13 @@ class Builder
      * Sends a API request.
      *
      * @param array $data
-     * @param bool  $fakeAttributes
      *
      * @throws FortnoxRequestException
      * @throws FortnoxServerException
      *
      * @return Model
      */
-    public function create($data = [], $fakeAttributes = true)
+    public function create($data = [])
     {
         try {
             $response = $this->request->curl->post("{$this->getEntity()}", [
@@ -88,11 +87,7 @@ class Builder
 
             $responseData = (array) json_decode($response->getBody()->getContents());
 
-            if (!$fakeAttributes) {
-                $freshData = (array) $this->find($responseData[( new $this->model($this->request) )->getPrimaryKey()]);
-            }
-
-            $mergedData = array_merge($responseData, $fakeAttributes ? $data : $freshData);
+            $mergedData = $responseData;
 
             return new $this->model($this->request, $mergedData);
         } catch (ClientException $exception) {
