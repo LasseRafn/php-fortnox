@@ -1,0 +1,30 @@
+{
+    "name": "lasserafn/php-fortnox",
+    "description": "Fortnox REST wrapper for PHP",
+    "keywords": ["laravel", "php", "wrapper", "fortnox", "api", "integration"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lasse Rafn",
+            "email": "lasserafn@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+		"guzzlehttp/guzzle": "~6.0"
+    },
+    "require-dev": {
+		"phpunit/phpunit": "^5.7",
+		"satooshi/php-coveralls": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "LasseRafn\\Fortnox\\": "src"
+        }
+    },
+	"autoload-dev": {
+		"psr-4": {
+			"LasseRafn\\Fortnox\\Tests\\": "tests/"
+		}
+	}
+}
