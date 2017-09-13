@@ -7,9 +7,10 @@ use LasseRafn\Fortnox\Responses\PaginatedResponse;
 
 class RequestBuilder
 {
-	private $builder;
+	protected $builder;
 
 	protected $parameters     = [];
+	protected $urlAdditions   = [];
 	protected $dateFormat     = 'Y-m-d';
 	protected $dateTimeFormat = 'Y-m-d H:i';
 
@@ -202,7 +203,7 @@ class RequestBuilder
 	/**
 	 * Build URL parameters.
 	 *
-	 * @return array
+	 * @return string
 	 */
 	private function buildParameters()
 	{
@@ -216,13 +217,33 @@ class RequestBuilder
 	}
 
 	/**
+	 * Build URL additions.
+	 *
+	 * @return string
+	 */
+	private function buildUrlAdditions()
+	{
+		if ( count( $this->urlAdditions ) === 0 ) {
+			return '';
+		}
+
+		$urlAddition = '';
+
+		foreach ( $this->urlAdditions as $addition ) {
+			$urlAddition .= "/{$addition}";
+		}
+
+		return $urlAddition;
+	}
+
+	/**
 	 * Send a request to the API to get models.
 	 *
 	 * @return PaginatedResponse
 	 */
 	public function get()
 	{
-		$response = $this->builder->get( $this->buildParameters() );
+		$response = $this->builder->get( $this->buildParameters(), $this->buildUrlAdditions() );
 
 		return $response;
 	}

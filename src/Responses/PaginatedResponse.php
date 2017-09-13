@@ -4,7 +4,7 @@ namespace LasseRafn\Fortnox\Responses;
 
 use GuzzleHttp\Psr7\Response;
 
-class PaginatedResponse
+class PaginatedResponse implements \ArrayAccess
 {
     /** @var array */
     public $items;
@@ -24,10 +24,30 @@ class PaginatedResponse
         $this->totalResults = $jsonResponse->MetaInformation->{'@TotalResources'};
     }
 
-    public function setItems(array $items)
+	public function setItems(array $items)
     {
         $this->items = $items;
 
         return $this;
     }
+
+	public function offsetSet($offset, $value) {
+		if ($offset === null) {
+			$this->items[] = $value;
+		} else {
+			$this->items[$offset] = $value;
+		}
+	}
+
+	public function offsetExists($offset) {
+		return isset($this->items[$offset]);
+	}
+
+	public function offsetUnset($offset) {
+		unset($this->items[$offset]);
+	}
+
+	public function offsetGet($offset) {
+		return $this->items[$offset] ?? null;
+	}
 }

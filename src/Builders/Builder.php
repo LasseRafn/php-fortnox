@@ -45,13 +45,14 @@ class Builder
 
     /**
      * @param string $parameters
+     * @param string $urlAdditions
      *
      * @return PaginatedResponse
      */
-    public function get($parameters = '')
+    public function get($parameters = '', $urlAdditions = '')
     {
         try {
-            $response = $this->request->curl->get("{$this->getUrlEntity()}{$parameters}");
+            $response = $this->request->curl->get("{$this->getUrlEntity()}{$urlAdditions}{$parameters}");
             $paginatedResponse = new PaginatedResponse($response, $this->getEntity());
         } catch (ClientException $exception) {
             throw new FortnoxRequestException($exception);
