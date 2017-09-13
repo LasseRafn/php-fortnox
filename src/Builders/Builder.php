@@ -102,10 +102,10 @@ class Builder
         return $this->entity;
     }
 
-	public function getSingularEntity()
-	{
-		return $this->entity_singular;
-	}
+    public function getSingularEntity()
+    {
+        return $this->entity_singular;
+    }
 
     public function getUrlEntity()
     {
