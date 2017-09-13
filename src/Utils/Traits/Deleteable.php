@@ -10,19 +10,19 @@ use Psr\Http\Message\ResponseInterface;
 
 trait Deleteable
 {
-	/**
-	 * Send a request to the API to delete the model.
-	 *
-	 * @return ResponseInterface
-	 */
-	public function delete()
-	{
-		try {
-			return $this->request->curl->delete( "{$this->entity}/{$this->{$this->primaryKey}}" );
-		} catch ( ClientException $exception ) {
-			throw new FortnoxRequestException( $exception );
-		} catch ( ServerException $exception ) {
-			throw new FortnoxServerException( $exception );
-		}
-	}
+    /**
+     * Send a request to the API to delete the model.
+     *
+     * @return ResponseInterface
+     */
+    public function delete()
+    {
+        try {
+            return $this->request->curl->delete("{$this->entity}/{$this->{$this->primaryKey}}");
+        } catch (ClientException $exception) {
+            throw new FortnoxRequestException($exception);
+        } catch (ServerException $exception) {
+            throw new FortnoxServerException($exception);
+        }
+    }
 }

@@ -21,13 +21,13 @@ class CustomerRequestBuilder extends RequestBuilder
         return $this;
     }
 
-	/**
-	 * @param $guid
-	 *
-	 * @return \LasseRafn\Fortnox\Utils\Model|mixed|Customer
-	 */
-    public function find( $guid )
+    /**
+     * @param $guid
+     *
+     * @return \LasseRafn\Fortnox\Utils\Model|mixed|Customer
+     */
+    public function find($guid)
     {
-	    return parent::find( $guid );
+        return parent::find($guid);
     }
 }

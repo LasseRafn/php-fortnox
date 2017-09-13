@@ -24,30 +24,34 @@ class PaginatedResponse implements \ArrayAccess
         $this->totalResults = $jsonResponse->MetaInformation->{'@TotalResources'};
     }
 
-	public function setItems(array $items)
+    public function setItems(array $items)
     {
         $this->items = $items;
 
         return $this;
     }
 
-	public function offsetSet($offset, $value) {
-		if ($offset === null) {
-			$this->items[] = $value;
-		} else {
-			$this->items[$offset] = $value;
-		}
-	}
+    public function offsetSet($offset, $value)
+    {
+        if ($offset === null) {
+            $this->items[] = $value;
+        } else {
+            $this->items[$offset] = $value;
+        }
+    }
 
-	public function offsetExists($offset) {
-		return isset($this->items[$offset]);
-	}
+    public function offsetExists($offset)
+    {
+        return isset($this->items[$offset]);
+    }
 
-	public function offsetUnset($offset) {
-		unset($this->items[$offset]);
-	}
+    public function offsetUnset($offset)
+    {
+        unset($this->items[$offset]);
+    }
 
-	public function offsetGet($offset) {
-		return $this->items[$offset] ?? null;
-	}
+    public function offsetGet($offset)
+    {
+        return $this->items[$offset] ?? null;
+    }
 }

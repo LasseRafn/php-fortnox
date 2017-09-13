@@ -42,13 +42,13 @@ class InvoiceRequestBuilder extends RequestBuilder
         return $this;
     }
 
-	/**
-	 * @param $guid
-	 *
-	 * @return \LasseRafn\Fortnox\Utils\Model|mixed|Invoice
-	 */
-    public function find( $guid )
+    /**
+     * @param $guid
+     *
+     * @return \LasseRafn\Fortnox\Utils\Model|mixed|Invoice
+     */
+    public function find($guid)
     {
-	    return parent::find( $guid );
+        return parent::find($guid);
     }
 }

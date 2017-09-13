@@ -2,7 +2,6 @@
 
 namespace LasseRafn\Fortnox\Requests;
 
-use LasseRafn\Fortnox\Models\Invoice;
 use LasseRafn\Fortnox\Models\Order;
 use LasseRafn\Fortnox\Utils\RequestBuilder;
 
@@ -36,13 +35,13 @@ class OrderRequestBuilder extends RequestBuilder
         return $this;
     }
 
-	/**
-	 * @param $guid
-	 *
-	 * @return \LasseRafn\Fortnox\Utils\Model|mixed|Order
-	 */
-    public function find( $guid )
+    /**
+     * @param $guid
+     *
+     * @return \LasseRafn\Fortnox\Utils\Model|mixed|Order
+     */
+    public function find($guid)
     {
-	    return parent::find( $guid );
+        return parent::find($guid);
     }
 }
