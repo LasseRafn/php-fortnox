@@ -4,12 +4,14 @@ namespace LasseRafn\Fortnox;
 
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
+use LasseRafn\Fortnox\Builders\AccountBuilder;
 use LasseRafn\Fortnox\Builders\CustomerBuilder;
 use LasseRafn\Fortnox\Builders\InvoiceBuilder;
 use LasseRafn\Fortnox\Builders\OrderBuilder;
 use LasseRafn\Fortnox\Builders\VoucherBuilder;
 use LasseRafn\Fortnox\Exceptions\FortnoxRequestException;
 use LasseRafn\Fortnox\Exceptions\FortnoxServerException;
+use LasseRafn\Fortnox\Requests\AccountRequestBuilder;
 use LasseRafn\Fortnox\Requests\CustomerRequestBuilder;
 use LasseRafn\Fortnox\Requests\InvoiceRequestBuilder;
 use LasseRafn\Fortnox\Requests\OrderRequestBuilder;
@@ -89,5 +91,10 @@ class Fortnox
     public function vouchers()
     {
         return new VoucherRequestBuilder(new VoucherBuilder($this->request));
+    }
+
+    public function accounts()
+    {
+        return new AccountRequestBuilder(new AccountBuilder($this->request));
     }
 }
