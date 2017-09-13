@@ -14,6 +14,7 @@ class Builder
 {
     private $request;
     protected $entity;
+    protected $entity_singular;
 
     /** @var Model */
     protected $model;
@@ -34,7 +35,7 @@ class Builder
             $response = $this->request->curl->get("{$this->getUrlEntity()}/{$id}");
             $responseData = json_decode($response->getBody()->getContents());
 
-            return new $this->model($this->request, $responseData);
+            return new $this->model($this->request, $responseData->{$this->getSingularEntity()});
         } catch (ClientException $exception) {
             throw new FortnoxRequestException($exception);
         } catch (ServerException $exception) {
@@ -81,15 +82,13 @@ class Builder
     public function create($data = [])
     {
         try {
-            $response = $this->request->curl->post("{$this->getEntity()}", [
+            $response = $this->request->curl->post("{$this->getUrlEntity()}", [
                 'json' => $data,
             ]);
 
             $responseData = (array) json_decode($response->getBody()->getContents());
 
-            $mergedData = $responseData;
-
-            return new $this->model($this->request, $mergedData);
+            return new $this->model($this->request, $responseData->{$this->getSingularEntity()});
         } catch (ClientException $exception) {
             throw new FortnoxRequestException($exception);
         } catch (ServerException $exception) {
@@ -101,6 +100,11 @@ class Builder
     {
         return $this->entity;
     }
+
+	public function getSingularEntity()
+	{
+		return $this->entity_singular;
+	}
 
     public function getUrlEntity()
     {

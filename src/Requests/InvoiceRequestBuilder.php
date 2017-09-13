@@ -2,6 +2,7 @@
 
 namespace LasseRafn\Fortnox\Requests;
 
+use LasseRafn\Fortnox\Models\Invoice;
 use LasseRafn\Fortnox\Utils\RequestBuilder;
 
 class InvoiceRequestBuilder extends RequestBuilder
@@ -39,5 +40,15 @@ class InvoiceRequestBuilder extends RequestBuilder
         $this->parameters['filter'] = 'unbooked';
 
         return $this;
+    }
+
+	/**
+	 * @param $guid
+	 *
+	 * @return \LasseRafn\Fortnox\Utils\Model|mixed|Invoice
+	 */
+    public function find( $guid )
+    {
+	    return parent::find( $guid );
     }
 }

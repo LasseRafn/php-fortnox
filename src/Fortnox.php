@@ -6,12 +6,14 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use LasseRafn\Fortnox\Builders\ContactBuilder;
 use LasseRafn\Fortnox\Builders\CreditnoteBuilder;
+use LasseRafn\Fortnox\Builders\CustomerBuilder;
 use LasseRafn\Fortnox\Builders\InvoiceBuilder;
 use LasseRafn\Fortnox\Builders\ProductBuilder;
 use LasseRafn\Fortnox\Exceptions\FortnoxRequestException;
 use LasseRafn\Fortnox\Exceptions\FortnoxServerException;
 use LasseRafn\Fortnox\Requests\ContactRequestBuilder;
 use LasseRafn\Fortnox\Requests\CreditnoteRequestBuilder;
+use LasseRafn\Fortnox\Requests\CustomerRequestBuilder;
 use LasseRafn\Fortnox\Requests\InvoiceRequestBuilder;
 use LasseRafn\Fortnox\Requests\ProductRequestBuilder;
 use LasseRafn\Fortnox\Utils\Request;
@@ -71,23 +73,13 @@ class Fortnox
         }
     }
 
-    public function contacts()
+    public function customers()
     {
-        return new ContactRequestBuilder(new ContactBuilder($this->request));
+        return new CustomerRequestBuilder(new CustomerBuilder($this->request));
     }
 
     public function invoices()
     {
         return new InvoiceRequestBuilder(new InvoiceBuilder($this->request));
-    }
-
-    public function products()
-    {
-        return new ProductRequestBuilder(new ProductBuilder($this->request));
-    }
-
-    public function creditnotes()
-    {
-        return new CreditnoteRequestBuilder(new CreditnoteBuilder($this->request));
     }
 }
