@@ -7,6 +7,7 @@ use GuzzleHttp\Exception\ClientException;
 class FortnoxRequestException extends ClientException
 {
     public $validationErrors = [];
+    public $fortnoxCode;
 
     public function __construct(ClientException $clientException)
     {
@@ -19,10 +20,12 @@ class FortnoxRequestException extends ClientException
             $message = $clientException->getMessage();
 
             if (isset($messageResponse->ErrorInformation) && isset($messageResponse->ErrorInformation->Code)) {
+            	$this->fortnoxCode = $messageResponse->ErrorInformation->Code;
                 $message = "{$messageResponse->ErrorInformation->Code}: {$messageResponse->ErrorInformation->Message}";
             }
 
             if (isset($messageResponse->ErrorInformation) && isset($messageResponse->ErrorInformation->code)) {
+	            $this->fortnoxCode = $messageResponse->ErrorInformation->code;
                 $message = "{$messageResponse->ErrorInformation->code}: {$messageResponse->ErrorInformation->message}";
             }
         }
