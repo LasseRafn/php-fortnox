@@ -202,6 +202,25 @@ class RequestBuilder
 	}
 
 	/**
+	 * Add one or many filter(s) by any parameter(s).
+	 *
+	 * @param $key
+	 * @param $value
+	 *
+	 * @return $this
+	 */
+	public function filter( $key, $value = null )
+	{
+		if( is_array($key) ) {
+			$this->parameters = array_merge( $this->parameters, $key );
+		} else {
+			$this->parameters[$key] = $value;
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Build URL parameters.
 	 *
 	 * @return string
