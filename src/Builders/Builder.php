@@ -87,9 +87,9 @@ class Builder
                 'json' => $data,
             ]);
 
-            $responseData = (array) json_decode($response->getBody()->getContents());
+            $responseData = (array) json_decode($response->getBody()->getContents(), true);
 
-            return new $this->model($this->request, $responseData->{$this->getSingularEntity()});
+            return new $this->model($this->request, $responseData[$this->getSingularEntity()]);
         } catch (ClientException $exception) {
             throw new FortnoxRequestException($exception);
         } catch (ServerException $exception) {
